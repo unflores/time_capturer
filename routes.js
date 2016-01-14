@@ -1,48 +1,51 @@
-var Todo = require('./models/todo');
+var TimeLog = require('./models/time_log');
 
 module.exports = function(app) {
 
   // API ---------------------------------------------------------------------
-  app.get('/api/todos', function(req, res) {
+  app.get('/api/time_logs', function(req, res) {
 
-      Todo.find(function(err, todos) {
+      TimeLog.find(function(err, time_logs) {
 
           if (err)
               res.send(err)
 
-          res.json(todos);
+          res.json(time_logs);
       });
   });
 
-  app.post('/api/todos', function(req, res) {
+  app.post('/api/time_logs', function(req, res) {
 
-      Todo.create({
-          text : req.body.text,
-          done : false
-      }, function(err, todo) {
+      TimeLog.create({
+          client : req.body.client,
+          task:    req.body.task,
+          description: req.body.description,
+          start:   req.body.start,
+          time:    req.body.time
+      }, function(err, time_logs) {
           if (err)
               res.send(err);
 
-          Todo.find(function(err, todos) {
+          TimeLog.find(function(err, time_logs) {
               if (err)
                   res.send(err)
-              res.json(todos);
+              res.json(time_logs);
           });
       });
 
   });
 
-  app.delete('/api/todos/:todo_id', function(req, res) {
-      Todo.remove({
-          _id : req.params.todo_id
-      }, function(err, todo) {
+  app.delete('/api/time_logs/:time_log_id', function(req, res) {
+      TimeLog.remove({
+          _id : req.params.time_log_id
+      }, function(err, time_log) {
           if (err)
               res.send(err);
 
-          Todo.find(function(err, todos) {
+          TimeLog.find(function(err, time_logs) {
               if (err)
                   res.send(err)
-              res.json(todos);
+              res.json(time_logs);
           });
       });
   });

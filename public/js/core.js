@@ -1,3 +1,3 @@
-var scotchTodo = angular.module('scotchTodo', []);
+var timeCapturer = angular.module('timeCapturer', []);
 
-angular.module('scotchTodo', ['todoController', 'todoService']);
+angular.module('timeCapturer', ['timeLogController', 'timeLogService']);

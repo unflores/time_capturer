@@ -1,30 +1,30 @@
-angular.module('todoController', [])
+angular.module('timeLogController', [])
 
-    .controller('mainController', function($scope, $http, Todos) {
+    .controller('mainController', function($scope, $http, TimeLogs) {
         $scope.formData = {};
 
-        Todos.get()
+        TimeLogs.get()
             .success(function(data){
-              $scope.todos = data;
+              $scope.time_logs = data;
             });
 
-        $scope.createTodo = function() {
+        $scope.createTimeLog = function() {
 
             // if form is empty, nothing will happen
             if (!$.isEmptyObject($scope.formData)) {
 
-                Todos.create($scope.formData)
+                TimeLogs.create($scope.formData)
                     .success(function(data) {
                         $scope.formData = {};
-                        $scope.todos = data;
+                        $scope.time_logs = data;
                     });
             }
         };
 
-        $scope.deleteTodo = function(id) {
-            Todos.delete(id)
+        $scope.deleteTimeLog = function(id) {
+            TimeLogs.delete(id)
                 .success(function(data) {
-                    $scope.todos = data;
+                    $scope.time_logs = data;
                 });
         };
     });

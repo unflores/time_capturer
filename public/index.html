@@ -1,13 +1,13 @@
 <!doctype html>
 
 <!-- ASSIGN OUR ANGULAR MODULE -->
-<html ng-app="scotchTodo">
+<html ng-app="timeCapturer">
 <head>
     <!-- META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
-    <title>Node/Angular Todo App</title>
+    <title>Time Capturer</title>
 
     <!-- SCROLLS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
@@ -19,51 +19,60 @@
 
     <!-- SPELLS -->
     
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.4/angular.min.js"></script>
     <script src="js/controllers/main.js"></script> <!-- load up our controller -->
-    <script src="js/services/todos.js"></script> <!-- load our todo service -->
+    <script src="js/services/time_logs.js"></script>
     <script src="js/core.js"></script> <!-- load our main application -->
 
 </head>
-<!-- SET THE CONTROLLER AND GET ALL TODOS -->
+
 <body ng-controller="mainController">
     <div class="container">
 
-        <!-- HEADER AND TODO COUNT -->
         <div class="jumbotron text-center">
-            <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+            <h1>Logs  <span class="label label-info">{{time_logs.length }}</span></h1>
         </div>
 
-        <!-- TODO LIST -->
+        <!-- LIST -->
         <div id="todo-list" class="row">
             <div class="col-sm-4 col-sm-offset-4">
-
-                <div class="checkbox" ng-repeat="todo in todos">
-                    <label>
-                        <input type="checkbox" ng-click="deleteTodo(todo._id)"> {{ todo.text }}
-                    </label>
-                </div>
+                <table class="table table-striped">
+                  <thead>
+                      <tr>
+                          <th>Client</th>
+                          <th>Task</th>
+                          <th>Description</th>
+                          <th>Start</th>
+                          <th>Stop</th>
+                          <th>Time</th>
+                          <th>Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="time_log in time_logs">
+                      <td>{{ time_log.client }}</td>
+                      <td>{{ time_log.task }}</td>
+                      <td>{{ time_log.description }}</td>
+                      <td>{{ time_log.start }}</td>
+                      <td>{{ time_log.stop }}</td>
+                      <td>{{ time_log.time }}</td>
+                      <td><button ng-click="deleteTimeLog(time_log._id)">Delete</button></td>
+                    </tr>
+                    <tr>
+                      <td><input type="text" class="form-control" ng-model="formData.client" placeholder="Client..."/></td>
+                      <td><input type="text" class="form-control" ng-model="formData.task" placeholder="Task..."/></td>
+                      <td><input type="text" class="form-control" ng-model="formData.description" placeholder="Desc..."/></td>
+                      <td><input type="text" class="form-control" ng-model="formData.start" placeholder="15:00..."/></td>
+                      <td><input type="text" class="form-control" ng-model="formData.stop" placeholder="18:00..."/></td>
+                      <td></td>
+                      <td><button type="submit" class="btn btn-primary btn-lg" ng-click="createTimeLog()">Add</button></td>
+                    </tr>
+                  </tbody>
+                </table>
 
             </div>
         </div>
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="todo-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <input type="text" class="form-control input-lg text-center" placeholder="I want to buy a puppy that will love me forever" ng-model="formData.text">
-                    </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createTodo()">Add</button>
-                </form>
-            </div>
-        </div>
-
     </div>
 
 </body>
