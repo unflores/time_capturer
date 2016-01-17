@@ -1,6 +1,6 @@
 angular.module('timeLogController', [])
 
-    .controller('mainController', function($scope, $http, TimeLogs) {
+    .controller('mainController', function($scope, $http, TimeLogs, TimeDifference) {
         $scope.formData = {};
 
         TimeLogs.get()
@@ -12,7 +12,10 @@ angular.module('timeLogController', [])
 
             // if form is empty, nothing will happen
             if (!$.isEmptyObject($scope.formData)) {
-
+                $scope.formData.time = TimeDifference(
+                    $scope.formData.start,
+                    $scope.formData.stop
+                );
                 TimeLogs.create($scope.formData)
                     .success(function(data) {
                         $scope.formData = {};
