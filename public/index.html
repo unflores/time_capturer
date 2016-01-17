@@ -50,15 +50,6 @@
                       </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="time_log in time_logs">
-                      <td>{{ time_log.client }}</td>
-                      <td>{{ time_log.task }}</td>
-                      <td>{{ time_log.description }}</td>
-                      <td>{{ time_log.start }}</td>
-                      <td>{{ time_log.stop }}</td>
-                      <td tc-time></td>
-                      <td><button ng-click="deleteTimeLog(time_log._id)">Delete</button></td>
-                    </tr>
                     <tr>
                       <td><input type="text" class="form-control" ng-model="formData.client" placeholder="Client..."/></td>
                       <td><input type="text" class="form-control" ng-model="formData.task" placeholder="Task..."/></td>
@@ -67,6 +58,15 @@
                       <td><input type="text" class="form-control" ng-model="formData.stop" placeholder="18:00..."/></td>
                       <td></td>
                       <td><button type="submit" class="btn btn-primary btn-lg" ng-click="createTimeLog()">Add</button></td>
+                    </tr>
+                    <tr ng-repeat="time_log in time_logs">
+                      <td>{{ time_log.client }}</td>
+                      <td>{{ time_log.task }}</td>
+                      <td>{{ time_log.description }}</td>
+                      <td>{{ time_log.start }}</td>
+                      <td>{{ time_log.stop }}</td>
+                      <td tc-time></td>
+                      <td><button ng-click="deleteTimeLog(time_log._id)">Delete</button></td>
                     </tr>
                   </tbody>
                 </table>
