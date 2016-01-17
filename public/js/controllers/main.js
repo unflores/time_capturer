@@ -27,5 +27,12 @@ angular.module('timeLogController', [])
                     $scope.time_logs = data;
                 });
         };
-    });
+    })
+    .directive('tcTime',['TimeDifference', function(TimeDifference) {
+      return {
+        link: function (scope, element, attrs) {
+          element.text(TimeDifference(scope.time_log.start, scope.time_log.end));
+        }
+      };
+    }]);
 
