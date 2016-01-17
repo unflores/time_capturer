@@ -1,6 +1,6 @@
 angular.module('timeLogController', [])
 
-    .controller('mainController', function($scope, $http, TimeLogs, TimeDifference) {
+    .controller('mainController', function($scope, $http, TimeLogs, Time) {
         $scope.formData = {};
 
         TimeLogs.get()
@@ -12,7 +12,7 @@ angular.module('timeLogController', [])
 
             // if form is empty, nothing will happen
             if (!$.isEmptyObject($scope.formData)) {
-                $scope.formData.time = TimeDifference(
+                $scope.formData.time = Time.to_time(
                     $scope.formData.start,
                     $scope.formData.stop
                 );
@@ -31,10 +31,10 @@ angular.module('timeLogController', [])
                 });
         };
     })
-    .directive('tcTime',['TimeDifference', function(TimeDifference) {
+    .directive('tcStop',['Time', function(Time) {
       return {
         link: function (scope, element, attrs) {
-          element.text(TimeDifference(scope.time_log.start, scope.time_log.end));
+          element.text(Time.to_stop(scope.time_log.start, scope.time_log.time));
         }
       };
     }]);
