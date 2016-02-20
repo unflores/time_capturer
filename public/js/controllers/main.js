@@ -12,10 +12,6 @@ angular.module('timeLogController', [])
 
             // if form is empty, nothing will happen
             if (!$.isEmptyObject($scope.formData)) {
-                $scope.formData.time = Time.to_time(
-                    $scope.formData.start,
-                    $scope.formData.stop
-                );
                 TimeLogs.create($scope.formData)
                     .success(function(data) {
                         $scope.formData = {};
@@ -31,10 +27,10 @@ angular.module('timeLogController', [])
                 });
         };
     })
-    .directive('tcStop',['Time', function(Time) {
+    .directive('tcTime',['Time', function(Time) {
       return {
         link: function (scope, element, attrs) {
-          element.text(Time.to_stop(scope.time_log.start, scope.time_log.time));
+          element.text(Time.to_time(scope.time_log.start, scope.time_log.stop));
         }
       };
     }]);

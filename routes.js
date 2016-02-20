@@ -15,17 +15,15 @@ module.exports = function(app) {
   });
 
   app.post('/api/time_logs', function(req, res) {
-
       TimeLog.create({
           client : req.body.client,
           task:    req.body.task,
           description: req.body.description,
           start:   req.body.start,
-          time:    req.body.time
+          stop:    req.body.stop
       }, function(err, time_logs) {
           if (err)
               res.send(err);
-
           TimeLog.find(function(err, time_logs) {
               if (err)
                   res.send(err)
