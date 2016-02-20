@@ -17,20 +17,38 @@ angular.module('timeLogService', [])
         function roundToTwo(num) {
             return +(Math.round(num + "e+2")  + "e-2");
         }
-
-        function to_time(start, end){
+        // Takes time in form of hh:mm
+        // Returns a date obj
+        function to_date(hour_mins){
+          var now = new Date();
+          return new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate(),
+            hour_mins.split(':')[0],
+            hour_mins.split(':')[1]
+          );
+        }
+        // Takes a date obj
+        // Returns a time in form of hh:mm
+        function to_hour_mins(date){
+          return new Date(date).getHours() + ':' + ('0'+ new Date(date).getMinutes()).slice(-2);
+        }
+        // Takes a date object or a string in the form 'hh:mm'
+        function to_time(start, stop){
           // Invalid case
-          if(typeof start == 'undefined' || typeof end == 'undefined'){
+          if(typeof start == 'undefined' || typeof stop == 'undefined'){
             return '';
           }
-
+          start = to_hour_mins(start);
+          stop  = to_hour_mins(stop);
           start = start.split(':');
-          end   = end.split(':');
+          stop  = stop.split(':');
 
           var start_offset = start[0] * 60 + parseInt(start[1]);
-          var end_offset = end[0] * 60 + parseInt(end[1]);
+          var stop_offset  = stop[0] * 60 + parseInt(stop[1]);
 
-          return roundToTwo((end_offset - start_offset) / 60);
+          return roundToTwo((stop_offset - start_offset) / 60);
         }
 
         // Given start time "hh:mm" and a time in minutes "5.38" calculate stop time
@@ -53,7 +71,9 @@ angular.module('timeLogService', [])
 
         return {
           to_time: to_time,
-          to_stop: to_stop
+          to_stop: to_stop,
+          to_date: to_date,
+          to_hour_mins: to_hour_mins
         };
 
     });
