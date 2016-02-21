@@ -3,7 +3,7 @@ var TimeLog = require('./models/time_log');
 module.exports = function(app) {
 
   // API ---------------------------------------------------------------------
-  app.get('/api/time_logs', function(req, res) {
+  app.get('/time_capturer/api/time_logs', function(req, res) {
 
       TimeLog.find(function(err, time_logs) {
 
@@ -14,7 +14,7 @@ module.exports = function(app) {
       });
   });
 
-  app.post('/api/time_logs', function(req, res) {
+  app.post('/time_capturer/api/time_logs', function(req, res) {
       TimeLog.create({
           client : req.body.client,
           task:    req.body.task,
@@ -33,7 +33,7 @@ module.exports = function(app) {
 
   });
 
-  app.delete('/api/time_logs/:time_log_id', function(req, res) {
+  app.delete('/time_capturer/api/time_logs/:time_log_id', function(req, res) {
       TimeLog.remove({
           _id : req.params.time_log_id
       }, function(err, time_log) {
@@ -49,7 +49,7 @@ module.exports = function(app) {
   });
 
   app.get('*', function(req, res) {
-    res.sendFile('./public/index.html');
+    res.sendFile(__dirname + '/public/index.html');
   });
 
 };
