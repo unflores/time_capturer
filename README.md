@@ -1,3 +1,7 @@
+This is a small test project I put together to learn more about Angular.  It uses a nodejs backend and mongodb for the datastore. If you want to get it up and running just clone the repo and serve it from `http://example.com/time_capturer/`
+
+
+## TODO
 + ~~Sort the results of the logger in descending order by time and date~~
 + ~~Switch the inputs to store the start and the stop time and the total minutes of the log~~
 + ~~Set up deployment for timecapturer~~
